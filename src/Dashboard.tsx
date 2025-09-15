@@ -12,67 +12,82 @@ export const Dashboard: React.FC = () => {
 
   const columnDefs = useMemo(
     () => [
-      { field: "id", headerName: "ID", sortable: true, filter: true },
+      {
+        field: "id",
+        headerName: "ID",
+        sortable: true,
+        filter: true,
+        valueFormatter: (p) => p.value ?? "-",
+      },
       {
         field: "firstName",
         headerName: "First Name",
         sortable: true,
         filter: true,
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "lastName",
         headerName: "Last Name",
         sortable: true,
         filter: true,
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "age",
         headerName: "Age",
         sortable: true,
         filter: "agNumberColumnFilter",
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "department",
         headerName: "Department",
         sortable: true,
         filter: true,
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "position",
         headerName: "Position",
         sortable: true,
         filter: true,
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "salary",
         headerName: "Salary ($)",
         sortable: true,
         filter: "agNumberColumnFilter",
-        valueFormatter: (p) => p.value?.toLocaleString(),
+        valueFormatter: (p) => (p.value ? p.value.toLocaleString() : "-"),
       },
       {
         field: "hireDate",
         headerName: "Hire Date",
         sortable: true,
         filter: "agDateColumnFilter",
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "location",
         headerName: "Location",
         sortable: true,
         filter: true,
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "performanceRating",
         headerName: "Performance",
         sortable: true,
         filter: "agNumberColumnFilter",
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "projectsCompleted",
         headerName: "Projects",
         sortable: true,
         filter: "agNumberColumnFilter",
+        valueFormatter: (p) => p.value ?? "-",
       },
       {
         field: "isActive",
@@ -82,21 +97,25 @@ export const Dashboard: React.FC = () => {
         cellRenderer: (params: any) => {
           const isActive = params.value;
           return (
-            <span
-              style={{ color: isActive ? "green" : "red" }}
-            >
+            <span style={{ color: isActive ? "green" : "red" }}>
               {isActive ? "Active" : "Inactive"}
             </span>
           );
         },
       },
-      { field: "manager", headerName: "Manager", sortable: true, filter: true },
+      {
+        field: "manager",
+        headerName: "Manager",
+        sortable: true,
+        filter: true,
+        valueFormatter: (p) => p.value ?? "-",
+      },
       {
         field: "skills",
         headerName: "Skills",
         sortable: true,
         filter: true,
-        cellRenderer: (p: any) => p.value?.join(", "),
+        cellRenderer: (p: any) => (p.value?.length ? p.value.join(", ") : "-"),
       },
     ],
     []
