@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry } from "ag-grid-community";
 import { AllCommunityModule } from "ag-grid-community";
@@ -9,6 +9,7 @@ import { employees } from "./employeesData.json";
 
 export const Dashboard: React.FC = () => {
   const [rowData] = useState(employees);
+  const gridRef = useRef<any>(null);
 
   const columnDefs = useMemo(
     () => [
@@ -127,14 +128,15 @@ export const Dashboard: React.FC = () => {
         Employee Dashboard
       </h1>
 
-      <div
-        className="ag-theme-alpine"
-        style={{ height: "85vh", width: "100%" }}
-      >
+      <div className="ag-theme-alpine" style={{ width: "100%" }}>
         <AgGridReact
+          ref={gridRef}
           theme="legacy"
           rowData={rowData}
           columnDefs={columnDefs}
+          rowSelection="single"
+          onRowSelected={() => gridRef.current?.api.resetRowHeights()}
+          getRowHeight={(params) => (params.node.isSelected() ? 120 : 40)}
           pagination={true}
           paginationPageSize={10}
           paginationPageSizeSelector={[5, 10, 15, 20]}
